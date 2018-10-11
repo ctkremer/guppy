@@ -44,7 +44,7 @@ get.q<-function(x,p){
 
 #### Load & format data: ####
 
-dat<-read.csv("/Users/colin/Research/Active/guppy/FocalFish_fitness.csv")
+dat<-read.csv("./FocalFish_fitness.csv")
 dat<-dat[-which(dat$FishID_nodash=='FCA1O6G8B1005' & dat$GenGrp=='F1xN'),] #drop incorrect row entry
 dat2<-dat[!is.na(dat$LRS),]
 dat2$cohort.fctr<-as.factor(dat2$cohort)
@@ -104,7 +104,7 @@ pd1<-data.frame(pd1)
 pd1<-data.frame(newdat1,pd1)
 
 # Save these predictions/error bands for later:
-write.csv(pd1,"/Users/colin/Research/Active/guppy/data/LRS_pd1.csv",row.names=F)
+write.csv(pd1,"./data/LRS_pd1.csv",row.names=F)
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
