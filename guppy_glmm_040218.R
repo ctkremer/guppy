@@ -173,8 +173,8 @@ pd2.p<-data.frame(newdat2,pd2.p)
 head(pd2.p)
 
 # save predictions
-write.csv(pd2.mu,"/Users/colin/Research/Active/guppy/data/LRS_pd2_mu.csv",row.names=F)
-write.csv(pd2.p,"/Users/colin/Research/Active/guppy/data/LRS_pd2_p.csv",row.names=F)
+write.csv(pd2.mu,"./data/LRS_pd2_mu.csv",row.names=F)
+write.csv(pd2.p,"./data/LRS_pd2_p.csv",row.names=F)
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
@@ -237,8 +237,8 @@ for(i in 1:nsims){
   pd.mn<-predict(mzinbC.1.sim,newdata=newdat2,allow.new.levels=T)
   preds.mn[,i]<-pd.mn
 }
-write.csv(preds.mn,"/Users/colin/Research/Active/guppy/data/LRS_Caigual_bootstrapped_mzinbC.1_CI_bands_mu_raw.csv",row.names=F)
-write.csv(sim.opts3,"/Users/colin/Research/Active/guppy/data/LRS_Caigual_bootstrapped_mzinbC.1_CIs_raw.csv",row.names=F)
+write.csv(preds.mn,"./data/LRS_Caigual_bootstrapped_mzinbC.1_CI_bands_mu_raw.csv",row.names=F)
+write.csv(sim.opts3,"./data/LRS_Caigual_bootstrapped_mzinbC.1_CIs_raw.csv",row.names=F)
 head(sim.opts3)
 
 # format output:
@@ -262,7 +262,7 @@ m1 %>% summarise(p.1=test(hindex))
 # 1 0.094
 
 # save output
-write.csv(m1,"/Users/colin/Research/Active/guppy/data/LRS_Caigual_bootstrapped_mzinbC.1_CIs.csv",row.names=F)
+write.csv(m1,"./data/LRS_Caigual_bootstrapped_mzinbC.1_CIs.csv",row.names=F)
 
 ### Compute confidence bands:
 lwr.mn<-apply(preds.mn,1,FUN=get.q,0.025)
@@ -285,7 +285,7 @@ ggplot(c3C,aes(x=hs,y=mn))+
   geom_line(colour='purple')+
   theme_bw()
 
-write.csv(c3C,"/Users/colin/Research/Active/guppy/data/LRS_Caigual_bootstrapped_mzinbC.1_CI_bands.csv",row.names=F)
+write.csv(c3C,"./data/LRS_Caigual_bootstrapped_mzinbC.1_CI_bands.csv",row.names=F)
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
@@ -349,9 +349,9 @@ for(i in 1:nsims){
   pd2.z<-predict(mzinbT.6.sim,newdata=newdat2,allow.new.levels=T,zitype='zprob')
   preds.z[,i]<-pd2.z
 }
-write.csv(preds.mu,"/Users/colin/Research/Active/guppy/data/LRS_Taylor_bootstrapped_mzinbT.6_CI_bands_mu_raw.csv",row.names=F)
-write.csv(preds.z,"/Users/colin/Research/Active/guppy/data/LRS_Taylor_bootstrapped_mzinbT.6_CI_bands_z_raw.csv",row.names=F)
-write.csv(sim.opts4,"/Users/colin/Research/Active/guppy/data/LRS_Taylor_bootstrapped_mzinbT.6_CIs_raw.csv",row.names=F)
+write.csv(preds.mu,"./data/LRS_Taylor_bootstrapped_mzinbT.6_CI_bands_mu_raw.csv",row.names=F)
+write.csv(preds.z,"./data/LRS_Taylor_bootstrapped_mzinbT.6_CI_bands_z_raw.csv",row.names=F)
+write.csv(sim.opts4,"./data/LRS_Taylor_bootstrapped_mzinbT.6_CIs_raw.csv",row.names=F)
 head(sim.opts4)
 
 # format output:
@@ -384,7 +384,7 @@ m2 %>% group_by(par) %>% summarise(p.1=test2(hindex))
 # 2  z.max 0.3772
 
 # save output
-write.csv(m2,"/Users/colin/Research/Active/guppy/data/LRS_Taylor_bootstrapped_mzinbT.6_CIs.csv",row.names=F)
+write.csv(m2,"./data/LRS_Taylor_bootstrapped_mzinbT.6_CIs.csv",row.names=F)
 
 ### Compute confidence bands:
 lwr.mu<-apply(preds.mu,1,FUN=get.q,0.025)
@@ -411,7 +411,7 @@ ggplot(c3T,aes(x=hs,y=mn))+
   facet_wrap(~par,scales='free_y')+
   theme_bw()
 
-write.csv(c3T,"/Users/colin/Research/Active/guppy/data/LRS_Taylor_bootstrapped_mzinbT.6_CI_bands.csv",row.names=F)
+write.csv(c3T,"./data/LRS_Taylor_bootstrapped_mzinbT.6_CI_bands.csv",row.names=F)
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
@@ -420,17 +420,15 @@ write.csv(c3T,"/Users/colin/Research/Active/guppy/data/LRS_Taylor_bootstrapped_m
 # Combined graphics:
 
 # quick load data:
-c3C<-read.csv("/Users/colin/Research/Active/guppy/data/LRS_Caigual_bootstrapped_mzinbC.1_CI_bands.csv")
+c3C<-read.csv("./data/LRS_Caigual_bootstrapped_mzinbC.1_CI_bands.csv")
+c3T<-read.csv("./data/LRS_Taylor_bootstrapped_mzinbT.6_CI_bands.csv")
 
-# file missing:
-#c3T<-read.csv("/Users/colin/Research/Active/guppy/data/LRS_Taylor_bootstrapped_mzinbT.6_CI_bands.csv")
-m1<-read.csv("/Users/colin/Research/Active/guppy/data/LRS_Caigual_bootstrapped_mzinbC.1_CIs.csv")
+m1<-read.csv("./data/LRS_Caigual_bootstrapped_mzinbC.1_CIs.csv")
+m2<-read.csv("./data/LRS_Taylor_bootstrapped_mzinbT.6_CIs.csv")
 
-# file missing:
-#m2<-read.csv("/Users/colin/Research/Active/guppy/data/LRS_Taylor_bootstrapped_mzinbT.6_CIs.csv")
-pd1<-read.csv("/Users/colin/Research/Active/guppy/data/LRS_pd1.csv")
-pd2.mu<-read.csv("/Users/colin/Research/Active/guppy/data/LRS_pd2_mu.csv")
-pd2.p<-read.csv("/Users/colin/Research/Active/guppy/data/LRS_pd2_p.csv")
+pd1<-read.csv("./data/LRS_pd1.csv")
+pd2.mu<-read.csv("./data/LRS_pd2_mu.csv")
+pd2.p<-read.csv("./data/LRS_pd2_p.csv")
 
 # confidence band information:
 c3CT<-rbind(c3C,c3T)
