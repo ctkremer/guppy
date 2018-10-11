@@ -44,7 +44,7 @@ get.q<-function(x,p){
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 
 #### Load data: ####
-dat<-read.csv("/Users/colin/Research/Active/guppy/FocalFish_fitness.csv")
+dat<-read.csv("./FocalFish_fitness.csv")
 dat<-dat[-which(dat$FishID_nodash=='FCA1O6G8B1005' & dat$GenGrp=='F1xN'),]  #drop incorrect row entry
 dat3<-dat[!is.na(dat$Longevity),]
 dat3$cohort.fctr<-as.factor(dat3$cohort)
@@ -301,9 +301,9 @@ for(i in 1:nsims){
   pd2.z<-predict(mzinbC.4.sim,newdata=newdat2,allow.new.levels=T,zitype='zprob')
   predsC.z[,i]<-pd2.z
 }
-write.csv(predsC.mu,"/Users/colin/Research/Active/guppy/data/longevity_Caigual_bootstrapped_mzinbC.4_CI_bands_mu_raw.csv",row.names=F)
-write.csv(predsC.z,"/Users/colin/Research/Active/guppy/data/longevity_Caigual_bootstrapped_mzinbC.4_CI_bands_z_raw.csv",row.names=F) # this output was incomplete on initial execution; re-run?
-write.csv(sim.opts3,"/Users/colin/Research/Active/guppy/data/longevity_Caigual_bootstrapped_mzinbC.4_CIs_raw.csv",row.names=F)
+write.csv(predsC.mu,"./data/longevity_Caigual_bootstrapped_mzinbC.4_CI_bands_mu_raw.csv",row.names=F)
+write.csv(predsC.z,"./data/longevity_Caigual_bootstrapped_mzinbC.4_CI_bands_z_raw.csv",row.names=F) # this output was incomplete on initial execution; re-run?
+write.csv(sim.opts3,"./data/longevity_Caigual_bootstrapped_mzinbC.4_CIs_raw.csv",row.names=F)
 head(sim.opts3)
 
 # format output:
@@ -350,7 +350,7 @@ m1 %>% group_by(Sex) %>% summarise(p.1=test(hindex))
 # 2      M 0.0001
 
 # save output
-write.csv(m1,"/Users/colin/Research/Active/guppy/data/longevity_Caigual_bootstrapped_mzinbC.4_CIs.csv",row.names=F)
+write.csv(m1,"./data/longevity_Caigual_bootstrapped_mzinbC.4_CIs.csv",row.names=F)
 
 
 ### Confidence bands:
@@ -378,7 +378,7 @@ ggplot(c3C,aes(x=hindex,y=mn))+
   scale_colour_manual(values=c('red','blue'))+
   theme_bw()
 
-write.csv(c3C,"/Users/colin/Research/Active/guppy/data/longevity_Caigual_bootstrapped_mzinbC.4_CI_bands.csv",row.names=F)
+write.csv(c3C,"./data/longevity_Caigual_bootstrapped_mzinbC.4_CI_bands.csv",row.names=F)
 
 # In future: add processing for zi terms....
 
@@ -453,9 +453,9 @@ for(i in 1:nsims){
   pd2.z<-predict(mzinbT.9.sim,newdata=newdat2,allow.new.levels=T,zitype='zprob')
   predsT.z[,i]<-pd2.z
 }
-write.csv(predsT.mu,"/Users/colin/Research/Active/guppy/data/longevity_Taylor_bootstrapped_mzinbT.9_CI_bands_mu_raw.csv",row.names=F)
-write.csv(predsT.z,"/Users/colin/Research/Active/guppy/data/longevity_Taylor_bootstrapped_mzinbT.9_CI_bands_zi_raw.csv",row.names=F)
-write.csv(sim.opts4,"/Users/colin/Research/Active/guppy/data/longevity_Taylor_bootstrapped_mzinbT.9_CIs_raw.csv",row.names=F)
+write.csv(predsT.mu,"./data/longevity_Taylor_bootstrapped_mzinbT.9_CI_bands_mu_raw.csv",row.names=F)
+write.csv(predsT.z,"./data/longevity_Taylor_bootstrapped_mzinbT.9_CI_bands_zi_raw.csv",row.names=F)
+write.csv(sim.opts4,"./data/longevity_Taylor_bootstrapped_mzinbT.9_CIs_raw.csv",row.names=F)
 head(sim.opts4)
 
 # format output:
@@ -505,7 +505,7 @@ m2 %>% group_by(parameter) %>% summarise(p.1=test(hindex))
 #  2         z 0.0003
 
 # save output
-write.csv(m2,"/Users/colin/Research/Active/guppy/data/longevity_Taylor_bootstrapped_mzinbT.9_CIs.csv",row.names=F)
+write.csv(m2,"./data/longevity_Taylor_bootstrapped_mzinbT.9_CIs.csv",row.names=F)
 
 
 ### Confidence bands:
@@ -552,7 +552,7 @@ ggplot(c3T,aes(x=hindex,y=mn))+
   facet_wrap(~parameter,nrow=2,scales='free_y')+
   theme_bw()
 
-write.csv(c3T,"/Users/colin/Research/Active/guppy/data/longevity_Taylor_bootstrapped_mzinbT.9_CI_bands.csv",row.names=F)
+write.csv(c3T,"./data/longevity_Taylor_bootstrapped_mzinbT.9_CI_bands.csv",row.names=F)
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
@@ -567,17 +567,17 @@ tab2$stream<-'Taylor'
 tab3<-data.frame(rbind(tab1,tab2))
 tab3<-merge(tab3,bob3,by=c('Sex','stream'))
 
-write.csv(tab3,"/Users/colin/Research/Active/guppy/data/longevity_quad_max_table.csv",row.names=F)
+write.csv(tab3,"./data/longevity_quad_max_table.csv",row.names=F)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 
 #### Computations for horizontal error bars ####
 
-m1<-read.csv("/Users/colin/Research/Active/guppy/data/longevity_Taylor_bootstrapped_mzinbC.4_CIs.csv")
+m1<-read.csv("./data/longevity_Taylor_bootstrapped_mzinbC.4_CIs.csv")
 m1$parameter<-'mu'
 
-m2<-read.csv("/Users/colin/Research/Active/guppy/data/longevity_Taylor_bootstrapped_mzinbT.9_CIs.csv")
+m2<-read.csv("./data/longevity_Taylor_bootstrapped_mzinbT.9_CIs.csv")
 
 # combine data on quad maximum's position:
 tab1<-m1 %>% group_by(Sex,parameter) %>% summarise(lw.ci=quantile(hindex,probs=0.025),up.ci=quantile(hindex,probs=0.975))
@@ -591,7 +591,7 @@ tab3<-data.frame(rbind(tab1,tab2))
 # merge with corresponding point estimates:
 tab3<-merge(tab3,bob3,by=c('Sex','stream','parameter'))
 
-write.csv(tab3,"/Users/colin/Research/Active/guppy/data/longevity_quad_max_table.csv",row.names=F)
+write.csv(tab3,"./data/longevity_quad_max_table.csv",row.names=F)
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
@@ -600,10 +600,10 @@ write.csv(tab3,"/Users/colin/Research/Active/guppy/data/longevity_quad_max_table
 #### Final plotting, both streams: ####
 
 # load data for plotting
-c3C<-read.csv("/Users/colin/Research/Active/guppy/data/longevity_Caigual_bootstrapped_mzinbC.4_CI_bands.csv")
+c3C<-read.csv("./data/longevity_Caigual_bootstrapped_mzinbC.4_CI_bands.csv")
 c3C$parameter<-'mu'
-c3T<-read.csv("/Users/colin/Research/Active/guppy/data/longevity_Taylor_bootstrapped_mzinbT.9_CI_bands.csv")
-tab3<-read.csv("/Users/colin/Research/Active/guppy/data/longevity_quad_max_table.csv")
+c3T<-read.csv("./data/longevity_Taylor_bootstrapped_mzinbT.9_CI_bands.csv")
+tab3<-read.csv("./data/longevity_quad_max_table.csv")
 
 # confidence band information:
 c3CT<-rbind(c3C,c3T)
@@ -663,5 +663,5 @@ p3L
 pcombL<-arrangeGrob(p2L,p1L,p3L,nrow=2)
 
 scl<-0.8
-ggsave("/Users/colin/Research/Active/guppy/figures/Longevity_by_hindex_and_stream_newCIs_v2.pdf",pcombL,width=scl*8.5,height=scl*7.5)
+ggsave("./figures/Longevity_by_hindex_and_stream_newCIs_v2.pdf",pcombL,width=scl*8.5,height=scl*7.5)
 
